@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>RaktArpan</title>
+		<meta charset="utf-8">
+		<meta name='viewport' content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		{% load static %}
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'css/index.css' %}" rel="stylesheet">
+		<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <style>
+            body {
+                background: rgb(237,237,237);
+                background: radial-gradient(circle, rgba(237,237,237,1) 59%, rgba(255,245,245,1) 100%);
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 100;
+                padding: 90px 0 0;
+                box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+                z-index: 99;
+            }
+            .action {
+                width: 200px;
+            }
+            hr.new1 {
+                border-top: 1px solid red;
+            }
+            hr.new2 {
+                border: 2px solid red;
+                border-radius: 5px;
+            }
+
+        
+            @media (max-width: 767.98px) {
+                .sidebar {
+                    top: 11.5rem;
+                    padding: 0;
+                }
+            }
+        
+            .navbar {
+                box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .1);
+            }
+
+            .navbar-inverse {
+                background-color: #E74C3C;
+            }
+
+            .navbar-inverse .navbar-brand {
+                color: #fff;
+            }
+        
+            @media (min-width: 767.98px) {
+                .navbar {
+                    top: 0;
+                    position: sticky;
+                    z-index: 999;
+                }
+            }
+        
+            .sidebar .nav-link {
+                color: #333;
+            }
+        
+            .sidebar .nav-link.active {
+                color: #0d6efd;
+            }
+        </style>
+	</head>
+	<body>
+        <div class="navbar navbar-inverse navbar-fixed-top"> 
+            <div class="container"> 
+                <div class="navbar-header"> 
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                    </button> <a class="navbar-brand" href="/user/">RaktArpan</a> 
+                    <!--a class="navbar-brand" href="/user/hcadmin_dashboard" style="margin-right: 25px;">Dashboard</a>
+                    <a class="navbar-brand" href="/user/hcadmin_dashboard/hcadmin_profile" style="margin-right: 25px;">Profile </a-->
+                    <a class="navbar-brand" href="/user/loginpage" style="margin-left: 25px;">Sign In</a>
+                    <a class="navbar-brand" href="/user/signup" style="margin-left: 25px;">Register</a>
+                    
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <a class="navbar-brand" href="/user/donateBlood" style="margin-right: 25px;">Donate Blood</a>
+                        <a class="navbar-brand" href="/user/searchBlood" style="margin-right: 25px;">Look for Blood</a>
+                    </ul> 
+                </div> 
+                <!--div class="collapse navbar-collapse" id="myNavbar"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <li><a href = ""><span class = "glyphicon glyphicon-user"></span> {{ hcadmin.user.username }}</a></li> 
+                        <li><a href = "/user/logout"><span class = "glyphicon glyphicon-log-in"></span> Logout</a></li> 
+                    </ul> 
+                </div--> 
+            </div> 
+        </div>
+        <!-- <div>
+            <h2> Public Portal</h2>
+        </div>  -->
+        <div class="row" style="padding-top:4px;">
+            <div class="row text-center">
+                <div class="col-md-12 typeHeading">
+                    <h1 class="learnAbout">Learn About Donation</h1>
+                </div>
+            </div>
+            <br><br>
+            <div class="wow col-sm-6 rotateInDownRight text-center animated" data-wow-delay="0ms" data-wow-duration="1000ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 0ms; animation-name: rotateInDownRight;">
+                        <!-- <img src='assets/donationFact.jpg'></img> -->
+                <!-- <picture>
+                    <source srcset="donationFact.webp" type="image/webp">
+                    <source srcset="assets/donationFact.jpg" type="image/jpeg"> 
+                    <img src="donationFact.jpg" alt="One Donation Can save upto three lives">
+                </picture> -->
+                <blockquote>
+                        <p style="font-family:oswald">After donating blood, the body works to replenish the blood loss.<br> This stimulates the production of new blood cells and in turn, helps in maintaining good health.</p><p>
+                        </p>
+                </blockquote>
+                        
+                <button onclick="window.location='/user/donateBlood'" class="btn btn-danger svcNearBy hvr-sweep-to-right "><i class="fa fa-tint" aria-hidden="true"></i>&nbsp; Donate Now</button> 
+                <br><br>
+            </div>
+                             
+                             
+            <div class="col-sm-6">
+                <table class="table table-responsive table-bordered ">
+                    <tbody>
+                        <tr>
+                            <th colspan="3" style="color:white;background-color:red;">Compatible Blood Type Donors</th>
+                        </tr>
+                            <tr>
+                            <td><b>Blood Type</b></td>
+                            <td><b>Donate Blood To</b></td>
+                            <td><b>Receive Blood From</b></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>A+</b></span></td>
+                            <td>A+ AB+</td>
+                            <td>A+ A- O+ O-</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>O+</b></span></td>
+                            <td>O+ A+ B+ AB+</td>
+                            <td>O+ O-</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>B+</b></span></td>
+                            <td>B+ AB+</td>
+                            <td>B+ B- O+ O-</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>AB+</b></span></td>
+                            <td>AB+</td>
+                            <td>Everyone</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>A-</b></span></td>
+                            <td>A+ A- AB+ AB-</td>
+                            <td>A- O-</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>O-</b></span></td>
+                            <td>Everyone</td>
+                            <td>O-</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>B-</b></span></td>
+                            <td>B+ B- AB+ AB-</td>
+                            <td>B- O-</td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: #961e1b;"><b>AB-</b></span></td>
+                            <td>AB+ AB-</td>
+                            <td>AB- A- B- O-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                             
+        </div>
+
+        <hr class="new2"><hr><br>
+        <div class="col-md-8 col-md-offset-2 donationTypeInfoWindow text-center">
+			<header class="typeHeading">
+				<h1>Types of donation</h1>
+			</header>
+			<!-- /Header -->
+
+			<!-- Content -->
+			<div class="content">
+                <p style="text-align: center;">The human body contains five liters of blood, which is made of several useful components i.e. <strong>Whole blood</strong>, <strong>Platelet</strong>, and <strong>Plasma</strong>.</p>
+                <p style="text-align: center;">Each type of component has several medical uses and can be used for different medical treatments. your blood donation determines the best donation for you to make.</p>
+                <p style="text-align: center;">For <strong>plasma</strong> and <strong>platelet</strong> donation you must have donated whole blood in past two years.</p>
+                							
+            </div>
+            <br><br>
+            <!-- "Tabs" -->
+		 <!-- <ul class="nav nav-tabs">
+			  
+			  <li onclick="openInfo(event, 'wholeBlood')" id="wb" class=" infoLink active"><a href="javascript:void(0)">Whole Blood</a></li>
+			  <li onclick="openInfo(event, 'plasma')" id="pls" class=" infoLink"><a href="javascript:void(0)">Plasma</a></li>
+			  <li onclick="openInfo(event, 'platelet')" id="plt" class=" infoLink"><a href="javascript:void(0)">Platelet</a></li>
+		</ul> -->
+            <hr class="new1">
+            <div class="card-header-1">
+                <h2>Whole Blood</h2>
+            </div>
+            <div class="row tabInfo" id="wholeBlood" style="display: block;">
+                <div class="col-md-4 ">
+                
+                    <h3>What is it?</h3>
+                    
+                    <p>
+                    Blood Collected straight from the donor after its donation usually separated into red blood cells, platelets, and plasma.</p>
+                    
+                    <h3>Who can donate?</h3>
+                    
+                    <p>You need to be 18-65 years old, weigh 45kg or more and be fit and healthy.</p>
+                
+
+                </div>
+                <div class="col-md-4 infoContent">
+                <h3>User For?</h3>
+                    
+                    <p>
+                    Stomach disease, kidney disease, childbirth, operations, blood loss, trauma, cancer, blood diseases, haemophilia, anemia, heart disease.</p>
+                    
+                    <h3>Lasts For?</h3>
+                    
+                    <p>Red cells can be stored for 42 days.</p>
+                
+                </div>
+                <div class="col-md-4 ">
+                <h3>How long does it take?</h3>
+                    
+                    <p>
+                    15 minutes to donate.</p>
+                    
+                    <h3>How often can I donate?</h3>
+                    
+                    <p>Every 12 weeks</p>
+                
+                </div>
+            </div>
+
+            <hr class="new1"> <hr>
+            <div class="card-header-1">
+                <h2>Plasma</h2>
+            </div>
+            <div class="row tab">
+                <div class="col-md-4 ">
+                
+                    <h3>What is it?</h3>
+                    
+                    <p>
+                    The straw-coloured liquid in which red blood cells, white blood cells, and platelets float in.Contains special nutrients which can be used to create 18 different type of medical products to treat many different medical conditions.</p>
+                    
+                    <h3>Who can donate?</h3>
+                    
+                    <p>You need to be 18-70 (men) or 20-70 (women) years old, weigh 50kg or more and must have given successful whole blood donation in last two years. </p>
+                
+
+                </div>
+                <div class="col-md-4 infoContent">
+                    <h3>User For?</h3>
+                    
+                    <p>
+                    Immune system conditions, pregnancy (including anti-D injections), bleeding, shock, burns, muscle and nerve conditions, haemophilia, immunisations.</p>
+                    
+                    <h3>Lasts For?</h3>
+                    
+                    <p>Plasma can last up to one year when frozen.</p>
+                
+                </div>
+                <div class="col-md-4 ">
+                    <h3>How  does it work?</h3>
+                    
+                    <p>
+                    We collect your blood, keep plasma and return rest to you by apheresis donation.</p>
+                
+                    <h3>How long does it take?</h3>
+                    
+                    <p>
+                    15 minutes to donate.</p>
+                    
+                    <h3>How often can I donate?</h3>
+                    
+                    <p>Every 2-3 weeks.</p>
+                
+                </div>
+            </div>
+            <hr class="new1"><hr>
+            <div class="card-header-1">
+                <h2>Platelet</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4 ">
+            
+                    <h3>What is it?</h3>
+                    
+                    <p>
+                    The tiny 'plates' in blood that wedge together to help to clot and reduce bleeding. Always in high demand, Vital for people with low platelet count, like malaria and cancer patients.</p>
+                    
+                    <h3>Who can donate?</h3>
+                    
+                    <p>You need to be 18-70 years old (men), weigh 50kg or more and have given a successful plasma donation in the past 12 months</p>
+            
+
+                </div>
+                <div class="col-md-4 infoContent">
+                <h3>User For?</h3>
+                    
+                    <p>
+                    Cancer, blood diseases, haemophilia, anaemia, heart disease, stomach disease, kidney disease, childbirth, operations, blood loss, trauma, burns.</p>
+                    
+                    <h3>Lasts For?</h3>
+                    
+                    <p>Just five days..</p>
+                
+                </div>
+                <div class="col-md-4 ">
+                <h3>How does it work?</h3>
+                    
+                    <p>
+                    We collect your blood, keep platelet and return rest to you by apheresis donation.</p>
+                    
+                <h3>How long does it take?</h3>
+                    
+                    <p>
+                    45 minutes to donate.</p>
+                    
+                    <h3>How often can I donate?</h3>
+                    
+                    <p>Every 2 weeks</p>
+                
+                </div>
+            </div>
+            <hr class="new1">
+            <br><br>
+            <button type="button" onclick="window.location='/user/donateBlood'" style="border-radius:0px" class="btn-lg btn btn-danger svcNearBy hvr-sweep-to-right ">Find Nearest Blood Bank To Donate</button> 
+            <br><br>
+        </div>  
+    
+            
+        
+		<!-- <footer class = "navbar-fixed-bottom">
+            <div class="container"> 
+                <center> 
+                    <p>
+                        Copyright &copy; RaktArpan All Rights Reserved | Contact Gaurav & Nibir.
+                    </p> 
+                </center> 
+            </div>  -->
+        </footer>
+	</body>
+</html>

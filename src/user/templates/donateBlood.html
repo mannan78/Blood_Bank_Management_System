@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>RaktArpan</title>
+		<meta charset="utf-8">
+		<meta name='viewport' content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		{% load static %}
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'css/index.css' %}" rel="stylesheet">
+		<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <style>
+            body {
+                background: rgb(237,237,237);
+background: radial-gradient(circle, rgba(237,237,237,1) 59%, rgba(255,245,245,1) 100%);
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 100;
+                padding: 90px 0 0;
+                box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+                z-index: 99;
+            }
+        
+            @media (max-width: 767.98px) {
+                .sidebar {
+                    top: 11.5rem;
+                    padding: 0;
+                }
+            }
+        
+            .navbar {
+                box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .1);
+            }
+        
+            @media (min-width: 767.98px) {
+                .navbar {
+                    top: 0;
+                    position: sticky;
+                    z-index: 999;
+                }
+            }
+            .btn{
+                background-color: #E74C3C;
+                color: #fff;
+            }
+            .btn:hover{
+                color: #fff;
+            }
+
+            .navbar-inverse {
+                background-color: #E74C3C;
+            }
+
+            .navbar-inverse .navbar-brand {
+                color: #fff;
+            }
+        
+            .sidebar .nav-link {
+                color: #333;
+            }
+        
+            .sidebar .nav-link.active {
+                color: #0d6efd;
+            }
+        </style>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="http://yourjavascript.com/7174319415/script.js"></script>
+        <script>
+            $(document).ready(function(){
+                    $('select#select_state').change(function () {
+                        var option_selected = $(this).find("option:selected");
+                        var state = option_selected.val();
+                        // console.log(state);
+
+                        $.ajax({
+                            url: "getdetails",
+                            type: "GET",
+                            data: {'state' : state},
+                            success: function(result){
+                                console.log(result);
+                                $("#select_city option").remove();
+                                for (var i = result.length - 1; i >= 0; i--) {
+                                    $("#select_city").append('<option>' + result[i].name +'</option>');
+                                }
+                            }
+                        });
+                    });
+            });
+        </script>
+	</head>
+
+	<body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top"> 
+            <div class="container"> 
+                <div class="navbar-header"> 
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                    </button><a class="navbar-brand" href="/user/">RaktArpan</a> 
+                    <a class="navbar-brand" href="/user/loginpage" style="margin-left: 25px;">Sign In</a>
+                    <a class="navbar-brand" href="/user/signup" style="margin-left: 25px;">Register</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <a class="navbar-brand" href="/user/donateBlood" style="margin-right: 25px;">Donate Blood</a>
+                        <a class="navbar-brand" href="/user/searchBlood" style="margin-right: 25px;">Look for Blood</a>
+                    </ul> 
+                </div> 
+            </div> 
+        </div>
+
+       <div class="container container-fluid">
+            <div class="row">
+                <form method="get" action="donateBlood">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-offset-2 col-md-4">
+                            <label for="state">State</label>
+                            <select id="select_state" class="form-control" name="state">
+                                <option value=''>----------</option>
+                                {% for state in states %}
+                                    <option val="{{ state.state }}"> {{ state.name }} </option>    
+                                {% endfor %}
+                            </select>  
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="city">City</label>
+                            <select name ="city" id="select_city" class="form-control">
+                                <option value=''>----------</option>
+                            </select>
+                        </div>
+                        <div class="col-md-offset-4 col-md-4 form-group" align="center">
+                            <button type="submit" class="btn">Search</button>
+                        </div> 
+                    </div>
+                </form>
+            </div>
+                    <div class="row">
+                        <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">S No.</th>
+                                                    <th scope="col">Camp Name</th>
+                                                    <th scope="col">Blood Bank Name</th>
+                                                    <th scope="col">State</th>
+                                                    <th scope="col">City</th>
+                                                    <th scope="col">Dates</th>
+                                                    <th scope="col">Time</th>
+                                                    <th scope="col">Location</th>
+                                                    <th scope="col">Organizer</th>
+                                                    <th scope="col">Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in items %}
+                                                <tr>
+                                                    <th>{{ item.s_no }}</th>
+                                                    <td>{{ item.camp_name }}</td>
+                                                    <td>{{ item.blood_bank_name }}</td>
+                                                    <td>{{ item.state }}</td>
+                                                    <td>{{ item.city }}</td>
+                                                    <td>{{ item.start_date }} - {{ item.end_date }}</td>
+                                                    <td>{{ item.start_time }} - {{ item.end_time }}</td>
+                                                    <td>{{ item.location }}</td>
+                                                    <td>{{ item.organizer }}</td>
+                                                    <td>{{ item.description }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+            <div class="push"></div>
+        </div>
+		<footer class = "navbar-fixed-bottom">
+            <div class="container"> 
+                <center> 
+                    <p>
+                        Copyright &copy; RaktArpan All Rights Reserved | Contact Gaurav & Nibir.
+                    </p> 
+                </center> 
+            </div> 
+        </footer>
+	</body>
+</html>
